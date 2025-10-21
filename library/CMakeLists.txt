@@ -1,11 +1,5 @@
-#option(USE_STATIC_MBEDTLS_LIBRARY "Build Mbed TLS static library." ON)
-#option(USE_SHARED_MBEDTLS_LIBRARY "Build Mbed TLS shared library." OFF)
-set(USE_SHARED_MBEDTLS_LIBRARY ${BUILD_SHARED_LIBS})
-if (USE_SHARED_MBEDTLS_LIBRARY)
-    set(USE_STATIC_MBEDTLS_LIBRARY OFF)
-else ()
-    set(USE_STATIC_MBEDTLS_LIBRARY ON)
-endif ()
+option(USE_STATIC_MBEDTLS_LIBRARY "Build Mbed TLS static library." ON)
+option(USE_SHARED_MBEDTLS_LIBRARY "Build Mbed TLS shared library." OFF)
 option(LINK_WITH_PTHREAD "Explicitly link Mbed TLS library to pthread." OFF)
 option(LINK_WITH_TRUSTED_STORAGE "Explicitly link Mbed TLS library to trusted_storage." OFF)
 
