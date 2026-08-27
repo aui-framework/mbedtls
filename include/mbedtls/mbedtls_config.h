@@ -2179,7 +2179,12 @@
  *
  * Uncomment this to enable pthread mutexes.
  */
-//#define MBEDTLS_THREADING_PTHREAD
+/* Enabled for Magicsea: the downloader polls its mirrors from several thread pool
+   workers at once, so TLS handshakes run concurrently. pthread only -- MSVC has no
+   pthreads, and Windows would need MBEDTLS_THREADING_ALT with our own callbacks. */
+#if !defined(_WIN32)
+#define MBEDTLS_THREADING_PTHREAD
+#endif
 
 /**
  * \def MBEDTLS_USE_PSA_CRYPTO
@@ -3761,7 +3766,11 @@
  *
  * Enable this layer to allow use of mutexes within Mbed TLS
  */
-//#define MBEDTLS_THREADING_C
+/* See MBEDTLS_THREADING_PTHREAD above. Both must be enabled together, so Windows keeps
+   the single-threaded build until an ALT implementation is provided. */
+#if !defined(_WIN32)
+#define MBEDTLS_THREADING_C
+#endif
 
 /**
  * \def MBEDTLS_TIMING_C
